@@ -22,3 +22,15 @@ class Quote {
     );
   }
 }
+
+class AddQuote {
+  final String text;
+  final QuoteCategory category;
+  final String author;
+
+  AddQuote({required this.text, required this.category, required this.author});
+
+  Map<String, dynamic> toJson() {
+    return {'text': text, 'categoryId': category.id, 'author': author};
+  }
+}

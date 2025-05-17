@@ -11,14 +11,18 @@ class QuoteProvider extends ChangeNotifier {
   List<Quote> get quotes => _quotes;
   bool get isFetching => _isFetching;
   bool get isFetchErrors => _isFetchErrors;
+  notifyListeners();
 
-  void fetchQuotes() async {
+  void fetchList(String? categoryId) async {
     try {
       _isFetching = true;
       _isFetchErrors = false;
-      notifyListeners();
-      _quotes = await getQuotes();
-      // here we fetch
+      final fetchedQuotes = await getQuotes(categoryId);
+      if (fetchedQuotes.isEmpty) {
+        _quotes = [];
+        return;
+      }
+      _quotes = fetchedQuotes;
     } catch (e) {
       _isFetchErrors = true;
     } finally {
@@ -26,4 +30,17 @@ class QuoteProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void addNew(AddQuote quoteData) async {
+    try {
+      await postQuote(quoteData);
+      notifyListeners();
+    } catch (e) {
+      _isFetchErrors = true;
+    } finally {
+      _isFetching = false;
+      notifyListeners();
+    }
+  }
+
 }
