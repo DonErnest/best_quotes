@@ -1,1 +1,0 @@
-const databaseUri = "https://best-quotes-255f6-default-rtdb.europe-west1.firebasedatabase.app/";

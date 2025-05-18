@@ -9,6 +9,7 @@ class QuoteFormController {
   final textController = TextEditingController();
   final authorController = TextEditingController();
   final categoryIdController = TextEditingController();
+  final createdOnController = TextEditingController();
 
   void dispose() {
     textController.dispose();
@@ -16,7 +17,7 @@ class QuoteFormController {
     categoryIdController.dispose();
   }
 
-  AddQuote getNewQuote() {
+  AddQuote getNewQuoteData() {
     final category = categories.firstWhere(
       (category) => category.id == categoryIdController.text,
     );
@@ -26,5 +27,15 @@ class QuoteFormController {
       author: authorController.text,
     );
     return newQuote;
+  }
+
+  UpdateQuote getUpdatedQuoteData() {
+    final editedQuoteData = UpdateQuote(
+      text: textController.text,
+      categoryId: categoryIdController.text,
+      author: authorController.text,
+      createdOn: createdOnController.text,
+    );
+    return editedQuoteData;
   }
 }

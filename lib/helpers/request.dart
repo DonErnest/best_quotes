@@ -14,6 +14,8 @@ Future<dynamic> request(
     response = await http.get(uri);
   } else if (method == 'POST') {
     response = await http.post(uri, body: jsonEncode(body));
+  } else if (method == 'PUT') {
+    response = await http.put(uri, body: jsonEncode(body));
   } else if (method == 'DELETE') {
     response = await http.delete(uri);
   } else {

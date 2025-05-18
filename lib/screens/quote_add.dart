@@ -1,3 +1,4 @@
+import 'package:best_quotes/app_routes.dart';
 import 'package:best_quotes/providers/quote.dart';
 import 'package:best_quotes/widget/canvas.dart';
 import 'package:best_quotes/widget/quote_form/quote_controller.dart';
@@ -18,9 +19,9 @@ class _QuoteAddScreenState extends State<QuoteAddScreen> {
 
   void addQuote() {
     if (quoteFormController.formKey.currentState!.validate()) {
-      final quoteData = quoteFormController.getNewQuote();
+      final quoteData = quoteFormController.getNewQuoteData();
       quotesProvider.addNew(quoteData);
-      Navigator.pop(context);
+      Navigator.of(context).pushReplacementNamed(AppRoutes.quotes, arguments: null);
     }
   }
 

@@ -13,7 +13,21 @@ class QuoteForm extends StatefulWidget {
 }
 
 class _QuoteFormState extends State<QuoteForm> {
-  late final List<bool> selectedModes;
+  late QuoteCategory category;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.controller.categoryIdController.text == "") {
+      widget.controller.categoryIdController.text = categories[0].id;
+      category = categories[0];
+    } else {
+      category = categories.firstWhere(
+        (category) =>
+            category.id == widget.controller.categoryIdController.text,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +69,7 @@ class _QuoteFormState extends State<QuoteForm> {
               },
               selectedItem: categories[0],
               compareFn: (item1, item2) => item1.id == item2.id,
-              items:
-                  (f, cs) => categories,
+              items: (f, cs) => categories,
               validator: (value) {
                 if (value == null) {
                   return "Please, select category";
@@ -64,19 +77,16 @@ class _QuoteFormState extends State<QuoteForm> {
                 return null;
               },
               dropdownBuilder: (ctx, selectedItem) {
-                return ListTile(
-                  title: Text(selectedItem!.title),
-                );
+                return ListTile(title: Text(selectedItem!.title));
               },
               popupProps: PopupProps.menu(
-                menuProps: MenuProps(
-                  align: MenuAlign.bottomCenter
-                ),
+                menuProps: MenuProps(align: MenuAlign.bottomCenter),
                 fit: FlexFit.loose,
-                itemBuilder: (ctx, item, isDisabled, isSelected) => Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Text(item.title),
-                )
+                itemBuilder:
+                    (ctx, item, isDisabled, isSelected) => Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Text(item.title),
+                    ),
               ),
             ),
           ],
