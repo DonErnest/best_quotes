@@ -4,13 +4,28 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+create env file on the lib/ level with all necessary variables
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+nano .env
+```
+when initializing your own realtime database in firebase, an index on category ID shall be made (otherwise, filter won't work)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```json
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+{
+  "rules": {
+    ".read": "now < 1750010400000", 
+    ".write": "now < 1750010400000",
+    "quotes": {".indexOn": "categoryId"}
+  }
+}
+```
+
+
+
+### Environment variables
+
+| Variable name   | Description                                                                   | 
+|-----------------|-------------------------------------------------------------------------------|
+| BASE_QUOTES_URL | base url for realtime database where all quotes are stored. Should end with / |
